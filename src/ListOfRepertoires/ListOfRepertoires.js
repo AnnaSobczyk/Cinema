@@ -1,8 +1,9 @@
 import React from 'react';
 import Repertoire from "../Repertoire/Repertoire.js";
 import moment from 'moment';
-
 import "./ListOfRepertoires.css";
+
+import Reservation from '../Reservation/Reservation.js';
 
 const getFilms = () => {
     return [{movie: "Title", hours: ["11:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15"] },
@@ -14,12 +15,14 @@ const getFilms = () => {
     {movie: "Title", hours: ["10:15", "12:15","15:15", "18:15", "13:15","15:15", "16:15", "13:15","15:15", "12:15"] } ,
         {movie: "Title", hours: ["12:15", "13:15","16:15", "18:15", "13:15","15:15", "16:15", "13:15","15:15", "23:15"] }];
 }
+
 class ListOfRepertoires extends React.Component{
     constructor(props){
         super(props);
         this.state = {repertoire: []};
         this.markedDate = null;
     }
+
     componentDidMount(){
         this.setState({repertoire: getFilms()});
         this.markedDate = document.querySelector(".date");
@@ -32,6 +35,7 @@ class ListOfRepertoires extends React.Component{
         this.markedDate = e.currentTarget;
         //wywołać zapytanie o filmy z podaną date, i wywołać na danych setstate()
     }
+
     render(){
         return (
             <div id="container">
@@ -48,6 +52,7 @@ class ListOfRepertoires extends React.Component{
                 {
                     this.state.repertoire.map((r, idx) => <Repertoire key={idx} name = {r}/>)
                 }
+                <Reservation />
             </div>
         );
     }
