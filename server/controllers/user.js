@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        var user = await User.findOne({ email }, (err, user) => {
+        const user = await User.findOne({ email }, (err, user) => {
             if (user) {
                 user.validatePassword(password).then(match => {
                     if (match) {
