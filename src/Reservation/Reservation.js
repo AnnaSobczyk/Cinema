@@ -46,6 +46,11 @@ class Reservation extends React.Component {
             })
         }
     }
+
+    onHideReservation(){
+        console.log("Reservation onHideReservation")
+        this.props.onHideReservation();
+    }
     
     render() {
         return (
@@ -62,6 +67,7 @@ class Reservation extends React.Component {
                 <ReservedSeats 
                     selected = { this.state.selectedSeats }
                 />
+                <button className="close-button" type="button" onClick={ (e) => this.onHideReservation() }>CLOSE</button>
             </div>
         )
     }
