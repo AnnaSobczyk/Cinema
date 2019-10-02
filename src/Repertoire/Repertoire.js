@@ -15,30 +15,40 @@ class Repertoire extends React.Component {
     showMovieDetails = ()=>{
         this.setState({ShowMovieDetails: true});
     }
+
     hideMovieDetails = () =>{
         this.setState({ShowMovieDetails: false});
     }
+
+    // nie działa przy wyświetlaniu rezerwacji, ale nie jestem pewna co zmienić
     onResize = () =>{
         this.movieHoursRef.current.className = this.hoursView();
     }
+
     componentDidMount(){
         window.addEventListener('resize', this.onResize);
     }
+
     hoursView = ()=> {
         const width = window.innerWidth;
         if(width <= 1285) return "movieHours-small";
         else return "movieHours-big";
     }
+
     openCloseDetails = (e) =>{
         e.preventDefault();
 
         // ReactDOM.createPortal(<MovieDetails />, document.querySelector('#modal'));
         this.state.ShowMovieDetails ? this.hideMovieDetails() : this.showMovieDetails();
     }
-    OpenReservation(e, h){
+
+    OpenReservation(e, screeningId){
         //Wstawić komponent Iwony
-        console.log("reservationClicked - " + h);
+        
+        // Potrzebuję tutaj od dostać od Ciebie ID seansu (tego obiektu co ma przypisaną salę do godziny)
+        this.props.onShowReservation(screeningId);
     }
+
     CanReserve(movieHour){
         const date = new Date();
         let actualHour = date.getHours();
