@@ -3,8 +3,6 @@ import Repertoire from "../Repertoire/Repertoire.js";
 import moment from 'moment';
 import "./ListOfRepertoires.css";
 
-import Reservation from '../Reservation/Reservation.js';
-
 const getFilms = () => {
     return [{movie: "Title", hours: ["11:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15", "13:15","15:15", "16:15"] },
     {movie: "Title", hours: ["10:15", "12:15","15:15", "18:15", "13:15","15:15", "16:15", "13:15","21:15", "22:15"] } ,
@@ -20,13 +18,13 @@ class ListOfRepertoires extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            repertoire: [], 
-            showReservation: false
+            repertoire: [],
+            // showReservation: false
         };
         this.markedDate = null;
     }
 
-    componentDidMount(){            
+    componentDidMount(){
         if(!this.state.showReservation){
             this.setState({repertoire: getFilms()});
             this.markedDate = document.querySelector(".date");
@@ -34,14 +32,14 @@ class ListOfRepertoires extends React.Component{
         }
     }
 
-    onShowReservation = (screeningId) => { 
-        this.setState({showReservation: true});
-    }
-    
-    onHideReservation = () =>{
-        console.log("ListOfRepertoires onHideReservation")
-        this.setState({showReservation: false});
-    }
+    // onShowReservation = (screeningId) => {
+    //     this.setState({showReservation: true});
+    // }
+
+    // onHideReservation = () =>{
+    //     console.log("ListOfRepertoires onHideReservation")
+    //     this.setState({showReservation: false});
+    // }
 
     getMoviesForDay(e, date){
         this.markedDate.style.backgroundColor = "transparent";
@@ -51,13 +49,13 @@ class ListOfRepertoires extends React.Component{
     }
 
     renderComponent() {
-        if(this.state.showReservation){
-            return (
-                <div id="container">
-                    <Reservation onHideReservation = { this.onHideReservation.bind(this) }  />
-                </div>
-            );
-        }else {
+        // if(this.state.showReservation){
+        //     return (
+        //         <div id="container">
+        //             <Reservation onHideReservation = { this.onHideReservation.bind(this) }  />
+        //         </div>
+        //     );
+        // }else {
             return (
                 <div id="container">
                     <p style = {{fontSize: "30px", color: "white"}}>Movies</p>
@@ -68,19 +66,19 @@ class ListOfRepertoires extends React.Component{
                                             </div>
                                             )
                         }
-    
+
                     </div>
                     {
-                        this.state.repertoire.map((r, idx) => <Repertoire onShowReservation = { this.onShowReservation.bind(this) } key={idx} name = {r}/>)
+                        this.state.repertoire.map((r, idx) => <Repertoire  key={idx} name = {r}/>) //onShowReservation = { this.onShowReservation.bind(this) }
                     }
                 </div>
             );
-        }
+        //}
     }
 
     render(){
         return (
-            <div class="div-wraper">
+            <div className="div-wraper">
                 { this.renderComponent() }
             </div>
         );

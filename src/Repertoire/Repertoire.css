@@ -83,12 +83,19 @@ p{
 }
 .hourBlocked{
     color: #444444;
+    text-decoration: none;
+}
+.hourBlocked:hover{
+    color: #444444;
+    cursor: default;
 }
 .hourOpened{
     color: black;
     font-size: 19px;
+    text-decoration: none;
 }
 .hourOpened:hover{
+    color: black;
     transform: scale(1.3);
     /* font-size: 19px; */
     font-weight: bold;

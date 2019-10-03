@@ -1,8 +1,10 @@
 import React from "react";
 // import ReactDOM from 'react-dom'
 import MovieDetails from '../MovieDetails/MovieDetails';
-// import Modal from '../Modal/Modal.js';
+import Modal from '../Modal/Modal.js';
 import "./Repertoire.css";
+import Reservation from "../Reservation/Reservation";
+import { Link } from "react-router-dom";
 
 class Repertoire extends React.Component {
 
@@ -28,7 +30,9 @@ class Repertoire extends React.Component {
     componentDidMount(){
         window.addEventListener('resize', this.onResize);
     }
-
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.onResize);
+    }
     hoursView = ()=> {
         const width = window.innerWidth;
         if(width <= 1285) return "movieHours-small";
@@ -44,12 +48,13 @@ class Repertoire extends React.Component {
 
     OpenReservation(e, screeningId){
         //Wstawić komponent Iwony
-        
+        // <Link to={`http://localhost:3000/rendering/${screeningId}`}>Rendering with React</Link>
         // Potrzebuję tutaj od dostać od Ciebie ID seansu (tego obiektu co ma przypisaną salę do godziny)
-        this.props.onShowReservation(screeningId);
+       // this.props.onShowReservation(screeningId);
     }
 
     CanReserve(movieHour){
+        // return true;
         const date = new Date();
         let actualHour = date.getHours();
         const actualMinutes = date.getMinutes();
@@ -65,7 +70,7 @@ class Repertoire extends React.Component {
         return this.CanReserve(movieHour) ? "hourOpened" : "hourBlocked";
     }
     render() {
-        const modal = this.state.ShowMovieDetails
+        const details = this.state.ShowMovieDetails
             ? <MovieDetails />
             : null;
         return (
@@ -90,11 +95,13 @@ class Repertoire extends React.Component {
                 </div>
                 <div ref={this.movieHoursRef} id="movieHours" className = {this.hoursView()}>
                     {
-                        this.props.name.hours.map((h,idx)=> <div key={idx} className = {`hour  ${this.hourStyle(h)}`} onClick = {this.CanReserve(h) ? (e) => this.OpenReservation(e, h) : null}> <p>{h}</p>  </div>)
+                        this.props.name.hours.map((h,idx)=> <div key={idx} onClick = {this.CanReserve(h) ? (e) => this.OpenReservation(e) : null}> <Link className = {`hour  ${this.hourStyle(h)}`} to={`/reservation/${5555}`}><p>{h}</p> </Link> </div>)
                     }
                 </div>
-                    {modal}
-            </div>);
+                    {details}
+
+            </div>
+        );
     }
 
 }
