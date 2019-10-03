@@ -5,9 +5,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('./database');
 const routes = require('./routes/index');
 
-// Routes
-var customer = require('./routes/user');
-
 const app = express();
 const router = express.Router();
 app.use(cors());

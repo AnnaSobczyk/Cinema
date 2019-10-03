@@ -22,7 +22,8 @@ exports.getByMovieAndId = (req, res) => {
     let query = { movie };
     if (_id) query._id = _id;
 
-    Screening.find(query, (err, screenings) => {
+    Screening.find(query).populate('details.screening_room').exec((err, screenings) => {
+        if (screenings.length === 1) return res.send(screenings[0]);
         res.send(screenings);
     });
 }
