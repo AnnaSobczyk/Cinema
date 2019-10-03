@@ -6,13 +6,13 @@ const schema = Joi.object().keys({
     movie: Joi.string().alphanum().required()
 });
 
-exports.getAll = (req, res) => {
+exports.getAll = async (req, res) => {
     Screening.find({}, (err, screenings) => {
         res.send(screenings);
     });
 }
 
-exports.getByMovieAndId = (req, res) => {
+exports.getByMovieAndId = async (req, res) => {
     const _id = req.params.id;
     const movie = req.params.movie;
 

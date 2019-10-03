@@ -5,13 +5,13 @@ const schema = Joi.object().keys({
     _id: Joi.string().alphanum().required()
 });
 
-exports.getAll = (req, res) => {
+exports.getAll = async (req, res) => {
     ScreeningRoom.find({}, (err, screeningRooms) => {
         res.send(screeningRooms);
     });
 }
 
-exports.getById = (req, res) => {
+exports.getById = async (req, res) => {
     const _id = req.params.id;
 
     const result = Joi.validate({ _id }, schema)

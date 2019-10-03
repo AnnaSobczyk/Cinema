@@ -8,15 +8,20 @@ const ReservationSchema = new Schema({
         required: true,
         ref: 'User'
     },
-    seat: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Seat' 
-    },
     date: {
         type: Date,
         required: true
     },
+    seats: [{
+        row: {
+            type: Number,
+            required: true
+        },
+        column: {
+            type: Number,
+            required: true
+        }
+    }],
     screening: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
