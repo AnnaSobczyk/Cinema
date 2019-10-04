@@ -78,6 +78,7 @@ class Reservation extends React.Component {
    onAccepted(){
      console.log("Tickets accepted")
       this.setState({ticketsSelected:true});
+      
     }
     //trzeba zmienić nazwę, jeśli nie będzie logowanie
     onAuthenticated(){
@@ -137,7 +138,7 @@ class Reservation extends React.Component {
               
               <ReservationPage Next={(e)=>this.onAccepted()}>
                    <p>tu będą wybrane bilety/miejsca</p> 
-                   <TicketsAccept>
+                   <TicketsAccept selected={this.state.selectedSeats}>
                    <ReservedSeats 
                        selected = { this.state.selectedSeats }
                   />
