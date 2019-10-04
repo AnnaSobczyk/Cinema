@@ -10,7 +10,7 @@ const getReservationData = async (movieId, screeningId) => {
     const response = await axios.get(`http://localhost:3001/api/screenings/${movieId}/${screeningId}`);
     return {
         time: moment(response.data.date).format('DD MMMM YYYY, HH:mm:ss'),
-        movieName: "",
+        movieName: response.data.movie.title || "",
         rows: response.data.details.screening_room.rows,
         columns: response.data.details.screening_room.columns,
         takenSeats: response.data.details.reserved_seats
@@ -61,7 +61,8 @@ class Reservation extends React.Component {
     render() {
         return (
             <div className="reservationContainer">
-                <p className="h1">{this.state.movieName} - Seat Reservation</p>
+                <p className="h1"> Seat Reservation</p>
+                <p className="h2">{this.state.movieName}</p>
                 <p className="h2">{String(this.state.time)}</p>
                 { this.state.isAlert ? <div className="alert">You can book up to 8 seats!</div> : ""}
                 <Seats
