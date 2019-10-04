@@ -30,9 +30,10 @@
 #movie-img{
     display: flex;
     width: 10%;
-    min-width: 50px;
+    min-width: 75px;
     height: 100px;
-    background-color: rgb(160,160,160);
+    /* background-image:  url("https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg"); */
+    /* background-color: rgb(160,160,160); */
     padding: 5px;
     margin: 10px;
 }
