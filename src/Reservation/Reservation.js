@@ -3,9 +3,10 @@ import "./Reservation.css";
 import Seats from "../Seats/Seats.js";
 import ReservedSeats from "../ReservedSeats/ReservedSeats.js";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const getReservationData = () => {
-
+    // axios.get()
     
     return {
         rows: 12,
