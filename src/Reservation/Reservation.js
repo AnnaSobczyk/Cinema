@@ -2,6 +2,10 @@ import React from 'react';
 import "./Reservation.css";
 import Seats from "../Seats/Seats.js";
 import ReservedSeats from "../ReservedSeats/ReservedSeats.js";
+import Result from "../ReservationSteps/Result";
+import PaymentMethod from "../ReservationSteps/PaymentMethod";
+import SignIn from "../ReservationSteps/SignIn";
+import TicketsAccept from "../ReservationSteps/TicketsAccept"
 
 const getReservationData = () => {
     return {
@@ -26,7 +30,14 @@ class Reservation extends React.Component {
             rows: 0,
             columns: 0,
             takenSeats: [],
-            selectedSeats: []
+            selectedSeats: [],
+            seatsSelected:false,
+            ticketsAccepted:false,
+            authenticated:false,
+            //user:null,
+            paymentMethod:null,
+            paymentCompleted:false,
+            ticketTypes:[]
         }
       }
 
@@ -54,8 +65,32 @@ class Reservation extends React.Component {
         this.props.onHideReservation();
     }
 
+    // onSelected(){
+    //     console.log("Seats selected");
+    //     this.props.onHideReservation();
+    //     this.setState({seatsSelected:true});
+    //     this.setState({ticketTypes:});
+
+    // }
+    // onTicketsAccepted(){
+    //     console.log("Tickets accepted")
+    //     this.setState({ticketsSelected:true});
+    // }
+    // onAuthenticated(){
+    //     console.log("User authenticated")
+    //     this.setState({authenticated:true});
+    // }
+    // onPaymentMethod(){
+    //     console.log("Payment method chosen");
+    //     this.setState({paymentMethod:this.props.payment});
+    // }
+    // onPaymentCompleted(){
+    //     console.log("Payment completed");
+    //     this.setState({paymentCompleted:true});
+    // }
+
     render() {
-        return (
+        /*return (
             <div className="reservationContainer">
                 <p className="h1">MOVE NAME - Seat Reservation</p>
                 <p className="h2">DD.MM.YY, hh.mm</p>
@@ -70,8 +105,51 @@ class Reservation extends React.Component {
                     selected = { this.state.selectedSeats }
                 />
                 <button className="close-button" type="button" onClick={ (e) => this.onHideReservation() }>CLOSE</button>
+                <button className="select-button" type="button" onClick={(e)=>this.onSelected()} >SELECT SEATS</button>
             </div>
-        )
+        )*/
+        if(!this.state.seatsSelected)
+         {  return (
+                //przydałby sie dodatkowy komponent do otoczki
+                <div className="reservationContainer">
+                    <p className="h1">MOVE NAME - Seat Reservation</p>
+                    <p className="h2">DD.MM.YY, hh.mm</p>
+                    <Seats 
+                        rows = { this.state.rows }
+                        columns = { this.state.columns }
+                        taken = { this.state.takenSeats }
+                        selected = { this.state.selectedSeats }
+                        onSeatClick = { this.onSeatClick.bind(this) }
+                    />
+                    <ReservedSeats 
+                        selected = { this.state.selectedSeats }
+                    />
+                    <button className="close-button" type="button" onClick={ (e) => this.onHideReservation() }>CLOSE</button>
+                    <button className="select-button" type="button" onClick={(e)=>this.onSelected()} >SELECT SEATS</button>
+                </div>
+            )
+         }
+        else if(!this.state.ticketAccepted)
+        {
+            return(
+                //tego jeszcze nie ma
+                {/*<ReservedSeats selected={this.state.selectedSeats}*/}
+                <TicketsAccept/>
+            )
+        }else if(!this.state.authenticated){
+            return(
+                //tego też nie ma 
+                <SignIn/>
+            )
+        }else if(!this.state.paymentMethod){
+            return(
+                //tego też nie ma 
+                <PaymentMethod/>
+            )
+        }
+        //i tego też nie ma
+        return <Result/>
+
     }
 }
 

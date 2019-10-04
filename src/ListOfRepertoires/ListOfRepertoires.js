@@ -24,7 +24,11 @@ class ListOfRepertoires extends React.Component{
         this.markedDate = null;
     }
 
+
     componentDidMount(){
+     
+        ///jesli nie ma włączonego trybu rezerwacji to pobiera filmy i zaznacza datę     
+
         if(!this.state.showReservation){
             this.setState({repertoire: getFilms()});
             this.markedDate = document.querySelector(".date");
