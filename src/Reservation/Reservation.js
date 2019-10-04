@@ -137,9 +137,11 @@ class Reservation extends React.Component {
               
               <ReservationPage Next={(e)=>this.onAccepted()}>
                    <p>tu będą wybrane bilety/miejsca</p> 
+                   <TicketsAccept>
                    <ReservedSeats 
                        selected = { this.state.selectedSeats }
                   />
+                  </TicketsAccept>
                 </ReservationPage>
               
             )

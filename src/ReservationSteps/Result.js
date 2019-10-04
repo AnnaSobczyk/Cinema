@@ -1,7 +1,9 @@
 import React from 'react';
 class Result extends React.Component{
     render(){
-        return <div>beee</div>
+        if(this.props.result=1)
+        {return <p>succes</p>}
+        return <p>failed</p>
     }
 }
 export default Result;
