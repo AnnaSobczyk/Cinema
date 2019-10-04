@@ -26,18 +26,19 @@ class ListOfRepertoires extends React.Component{
         this.markedDate = null;
     }
 
-    componentDidMount(){            
+    componentDidMount(){       
+        ///jesli nie ma włączonego trybu rezerwacji to pobiera filmy i zaznacza datę     
         if(!this.state.showReservation){
             this.setState({repertoire: getFilms()});
             this.markedDate = document.querySelector(".date");
             this.markedDate.style.backgroundColor = "rgba(90,90,90,0.8)";
         }
     }
-
+///zdarzenie (?) showReservation- to jest event listener, przyjmuje za argument identyfikator pokazu,włącza tryb rezerwacji
     onShowReservation = (screeningId) => { 
         this.setState({showReservation: true});
     }
-    
+///zdarzenie hide reservation-to jest event listener, wyłącza tryb rezerwacji
     onHideReservation = () =>{
         console.log("ListOfRepertoires onHideReservation")
         this.setState({showReservation: false});
