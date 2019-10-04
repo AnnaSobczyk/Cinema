@@ -1,9 +1,9 @@
 import React from "react";
 // import ReactDOM from 'react-dom'
 import MovieDetails from '../MovieDetails/MovieDetails';
-import Modal from '../Modal/Modal.js';
+// import Modal from '../Modal/Modal.js';
 import "./Repertoire.css";
-import Reservation from "../Reservation/Reservation";
+// import Reservation from "../Reservation/Reservation";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
