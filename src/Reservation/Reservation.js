@@ -35,6 +35,7 @@ class Reservation extends React.Component {
         this.setState(getReservationData());
         console.log(this.props);
         //this.props.match.params.screeningId //Id, które Ci potrzeba
+        console.log(this.props.match);
     }
 
     onSeatClick(row, column) {

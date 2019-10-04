@@ -9,7 +9,7 @@ export default function Routes() {
         <Router>
             <Route exact path ="/" component = {Home} />
             <Route path="/repertoires" component = {Repertoires} />
-            <Route path="/reservation/:screeningId" component = {Reservation} />
+            <Route path="/reservation/:movieId/:screeningId" component = {Reservation} />
         </Router>
     );
 }

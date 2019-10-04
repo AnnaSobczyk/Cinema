@@ -5,6 +5,7 @@ import Modal from '../Modal/Modal.js';
 import "./Repertoire.css";
 import Reservation from "../Reservation/Reservation";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 class Repertoire extends React.Component {
 
@@ -13,6 +14,9 @@ class Repertoire extends React.Component {
 
         this.movieHoursRef = React.createRef();
         this.state = {ShowMovieDetails: false};
+        this.details = this.props.movieDetails.info;
+        // console.log(this.props.movieDetails._id);
+        // console.log(this.details._id);
     }
     showMovieDetails = ()=>{
         this.setState({ShowMovieDetails: true});
@@ -54,7 +58,9 @@ class Repertoire extends React.Component {
     }
 
     CanReserve(movieHour){
+
         // return true;
+        console.log(movieHour);
         const date = new Date();
         let actualHour = date.getHours();
         const actualMinutes = date.getMinutes();
@@ -69,25 +75,29 @@ class Repertoire extends React.Component {
     hourStyle(movieHour){
         return this.CanReserve(movieHour) ? "hourOpened" : "hourBlocked";
     }
+    showHour(date){
+        const movieDate = moment(date);
+        return movieDate.format("kk:mm");
+    }
     render() {
-        const details = this.state.ShowMovieDetails
-            ? <MovieDetails />
+        const details = (d) =>this.state.ShowMovieDetails
+            ? <MovieDetails details={d}/>
             : null;
         return (
             <div className="single">
                 <div id="movieInfo" onClick = {this.openCloseDetails} >
-                    <div id="movie-img">
+                    <div id="movie-img" style={{backgroundImage: `url(${this.details.Poster})`}}>
                     </div>
                     <div id="movieDetails">
                         <div id="movieTitle">
-                            <p>{this.props.name.movie}</p>
+                            <p>{this.details.Title}</p>
                         </div>
                         <div>
                             <div id="movieDuration">
-                                <p>Czas trwania: 140 min</p>
+                                <p><span style={{fontWeight: "bold", fontSize: "17px"}}>Czas trwania:</span> {this.details.Runtime}</p>
                             </div>
                             <div id="movieMinAge">
-                                <p>Minimaly wiek: 15</p>
+                                <p><span style={{fontWeight: "bold", fontSize: "17px"}}>Gatunek:   </span>{this.details.Genre}</p>
                             </div>
                         </div>
                     </div>
@@ -95,10 +105,15 @@ class Repertoire extends React.Component {
                 </div>
                 <div ref={this.movieHoursRef} id="movieHours" className = {this.hoursView()}>
                     {
-                        this.props.name.hours.map((h,idx)=> <div key={idx} onClick = {this.CanReserve(h) ? (e) => this.OpenReservation(e) : null}> <Link className = {`hour  ${this.hourStyle(h)}`} to={`/reservation/${5555}`}><p>{h}</p> </Link> </div>)
+                        this.props.movieDetails.screenings.map((s)=> <div key={s._id}
+                            onClick = {this.CanReserve(s.date) ? (e) => this.OpenReservation(e) : null}
+                            >
+                                <Link className = {`hour  ${this.hourStyle(s.date)}`} to={`/reservation/${s.movie}/${s._id}`}><p>{this.showHour(s.date)}</p> </Link>
+                            </div>
+                        )
                     }
                 </div>
-                    {details}
+                    {details(this.details)}
 
             </div>
         );
