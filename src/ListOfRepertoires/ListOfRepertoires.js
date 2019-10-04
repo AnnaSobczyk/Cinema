@@ -40,10 +40,10 @@ class ListOfRepertoires extends React.Component{
     //     this.setState({showReservation: true});
     // }
 
-    // onHideReservation = () =>{
-    //     console.log("ListOfRepertoires onHideReservation")
-    //     this.setState({showReservation: false});
-    // }
+   // onHideReservation = () =>{
+   // console.log("ListOfRepertoires onHideReservation")
+   // this.setState({showReservation: false});
+   // }
 
     getMoviesForDay(e, date){
         this.markedDate.style.backgroundColor = "transparent";

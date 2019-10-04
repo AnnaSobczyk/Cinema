@@ -6,6 +6,8 @@ import Result from "../ReservationSteps/Result";
 import PaymentMethod from "../ReservationSteps/PaymentMethod";
 import SignIn from "../ReservationSteps/SignIn";
 import TicketsAccept from "../ReservationSteps/TicketsAccept"
+import ReservationPage from "../Tools/ReservationPage";
+
 
 const getReservationData = () => {
     return {
@@ -60,34 +62,36 @@ class Reservation extends React.Component {
         }
     }
 
-    onHideReservation(){
-        console.log("Reservation onHideReservation")
-        this.props.onHideReservation();
+  //  onHideReservation(){
+  //      console.log("Reservation onHideReservation")
+    //    this.props.onHideReservation();
+  //  }
+
+      onSelected(){
+         console.log("Seats selected");
+        this.setState({seatsSelected:true});
+      }
+        //this.setState({ticketTypes:});
+
+    // }
+    //zmienmy może ticketsAccepted na Accepted
+   onAccepted(){
+     console.log("Tickets accepted")
+      this.setState({ticketsSelected:true});
     }
-
-    // onSelected(){
-    //     console.log("Seats selected");
-    //     this.props.onHideReservation();
-    //     this.setState({seatsSelected:true});
-    //     this.setState({ticketTypes:});
-
-    // }
-    // onTicketsAccepted(){
-    //     console.log("Tickets accepted")
-    //     this.setState({ticketsSelected:true});
-    // }
-    // onAuthenticated(){
-    //     console.log("User authenticated")
-    //     this.setState({authenticated:true});
-    // }
-    // onPaymentMethod(){
-    //     console.log("Payment method chosen");
-    //     this.setState({paymentMethod:this.props.payment});
-    // }
-    // onPaymentCompleted(){
-    //     console.log("Payment completed");
-    //     this.setState({paymentCompleted:true});
-    // }
+    //trzeba zmienić nazwę, jeśli nie będzie logowanie
+    onAuthenticated(){
+    //    console.log("User authenticated")
+         this.setState({authenticated:true});
+    }
+    onPaymentMethod(){
+       console.log("Payment method chosen");
+       this.setState({paymentMethod:this.props.payment});
+     }
+    onPaymentCompleted(){
+      console.log("Payment completed");
+      this.setState({paymentCompleted:true});
+     }
 
     render() {
         /*return (
@@ -111,44 +115,60 @@ class Reservation extends React.Component {
         if(!this.state.seatsSelected)
          {  return (
                 //przydałby sie dodatkowy komponent do otoczki
-                <div className="reservationContainer">
-                    <p className="h1">MOVE NAME - Seat Reservation</p>
-                    <p className="h2">DD.MM.YY, hh.mm</p>
-                    <Seats 
-                        rows = { this.state.rows }
-                        columns = { this.state.columns }
-                        taken = { this.state.takenSeats }
-                        selected = { this.state.selectedSeats }
-                        onSeatClick = { this.onSeatClick.bind(this) }
-                    />
-                    <ReservedSeats 
-                        selected = { this.state.selectedSeats }
-                    />
-                    <button className="close-button" type="button" onClick={ (e) => this.onHideReservation() }>CLOSE</button>
-                    <button className="select-button" type="button" onClick={(e)=>this.onSelected()} >SELECT SEATS</button>
-                </div>
+///back nie działa, dunkcja przystosowana eszcze do wersji bez routa, trzeba zrobić to hrefa
+                <ReservationPage Next={(e)=>this.onSelected()}>
+                     <Seats 
+                      rows = { this.state.rows }
+                      columns = { this.state.columns }
+                      taken = { this.state.takenSeats }
+                      selected = { this.state.selectedSeats }
+                      onSeatClick = { this.onSeatClick.bind(this) }
+                  />
+                   <ReservedSeats 
+                       selected = { this.state.selectedSeats }
+                  />
+                </ReservationPage>
             )
          }
         else if(!this.state.ticketAccepted)
         {
+            // tu  <TicketsAccept/>
             return(
-                //tego jeszcze nie ma
-                {/*<ReservedSeats selected={this.state.selectedSeats}*/}
-                <TicketsAccept/>
+              
+              <ReservationPage Next={(e)=>this.onAccepted()}>
+                   <p>tu będą wybrane bilety/miejsca</p> 
+                   <ReservedSeats 
+                       selected = { this.state.selectedSeats }
+                  />
+                </ReservationPage>
+              
             )
-        }else if(!this.state.authenticated){
+        }else if(!this.state.authenticated)
+       //tu <SignIn/>
+        {
             return(
-                //tego też nie ma 
-                <SignIn/>
+               
+                <ReservationPage Next={(e)=>this.onAuthenticated()}>
+                <p> tu będzie formularz</p> 
+            </ReservationPage>
+               
             )
         }else if(!this.state.paymentMethod){
             return(
                 //tego też nie ma 
-                <PaymentMethod/>
+               // <PaymentMethod/>
+               <ReservationPage Next={(e)=>this.onPaymentMethod()}>
+              <p> tu będą płatności</p>
+           </ReservationPage>
             )
         }
         //i tego też nie ma
-        return <Result/>
+        return (
+        //<Result/>
+        <ReservationPage  Next={(e)=>this.onPaymentCompleted()}>
+        <p>tu będzie finalizacja</p>
+    </ReservationPage>
+        )
 
     }
 }
