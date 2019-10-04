@@ -1,7 +1,7 @@
 import React from "react";
 // import ReactDOM from 'react-dom'
 import MovieDetails from '../MovieDetails/MovieDetails';
-import Modal from '../Modal/Modal.js';
+// import Modal from '../Modal/Modal.js';
 import "./Repertoire.css";
 import Reservation from "../Reservation/Reservation";
 import { Link } from "react-router-dom";
@@ -95,7 +95,7 @@ class Repertoire extends React.Component {
                 </div>
                 <div ref={this.movieHoursRef} id="movieHours" className = {this.hoursView()}>
                     {
-                        this.props.name.hours.map((h,idx)=> <div key={idx} onClick = {this.CanReserve(h) ? (e) => this.OpenReservation(e) : null}> <Link className = {`hour  ${this.hourStyle(h)}`} to={`/reservation/${5555}`}><p>{h}</p> </Link> </div>)
+                        this.props.name.hours.map((h,idx)=> <div key={idx} onClick = {this.CanReserve(h) ? (e) => this.OpenReservation(e) : null}> <Link className = {`hour  ${this.hourStyle(h)}`} to={`/reservation/${"5d935c201c9d4400004114f3"}`}><p>{h}</p> </Link> </div>)
                     }
                 </div>
                     {details}
