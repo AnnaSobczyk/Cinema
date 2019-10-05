@@ -4,21 +4,10 @@ import moment from 'moment';
 import instance from '../axiosInstance';
 import "./ListOfRepertoires.css";
 
-const getMovieDetails = async (movieId) =>{
+const getMovieDetails = async () =>{
   try
   {
-    const res = await instance.get(`/api/movies/${movieId}`);
-    return res;
-  }
-  catch (err)
-  {
-
-  }
-}
-const getMovies = async (date) => {
-  try
-  {
-    const movie = [];
+    const movies = [];
     const response = await instance.get('/api/movies'); // pobranie listy filmów, w postaci {id: xx, movie_id: xx }
 
      const data = response.data.map(async  (d) => await (instance.get(`/api/movies/${d.movie_id}`)));
@@ -27,13 +16,17 @@ const getMovies = async (date) => {
      {
        let res;
        await data[i].then(r => res = r);
-        movie.push(res);
+        movies.push(res);
      }
+     console.log(movies);
   }
   catch(err)
   {
-
+      console.log(err);
   }
+}
+const getMovies = async (date) => {
+  const movies = getMovieDetails();
 }
 const getFilms = () => {
     return [{
@@ -233,7 +226,7 @@ class ListOfRepertoires extends React.Component{
     }
 
     componentDidMount(){
-      getMovieDetails();
+      getMovies();
         if(!this.state.showReservation){
             this.setState({repertoire: getFilms()});
             this.markedDate = document.querySelector(".date");
