@@ -2,12 +2,12 @@ import React from 'react';
 import "./Reservation.css";
 import Seats from "../Seats/Seats.js";
 import ReservedSeats from "../ReservedSeats/ReservedSeats.js";
+import instance from '../axiosInstance';
 import { Link } from "react-router-dom";
-import axios from "axios";
 import moment from "moment";
 
 const getReservationData = async (movieId, screeningId) => {
-    const response = await axios.get(`http://localhost:3001/api/screenings/${movieId}/${screeningId}`);
+    const response = await instance.get(`/api/screenings/${movieId}/${screeningId}`);
     return {
         time: moment(response.data.date).format('DD MMMM YYYY, HH:mm:ss'),
         movieName: response.data.movie.title || "",
