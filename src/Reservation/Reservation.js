@@ -2,24 +2,18 @@ import React from 'react';
 import "./Reservation.css";
 import Seats from "../Seats/Seats.js";
 import ReservedSeats from "../ReservedSeats/ReservedSeats.js";
+import instance from '../axiosInstance';
 import { Link } from "react-router-dom";
-import axios from "axios";
+import moment from "moment";
 
-const getReservationData = () => {
-    // axios.get()
-    
+const getReservationData = async (movieId, screeningId) => {
+    const response = await instance.get(`/api/screenings/${movieId}/${screeningId}`);
     return {
-        rows: 12,
-        columns: 20,
-        takenSeats: [
-            {row: 2, column: 2},
-            {row: 2, column: 3},
-            {row: 2, column: 4},
-            {row: 4, column: 12},
-            {row: 4, column: 13},
-            {row: 4, column: 14},
-            {row: 4, column: 15},
-        ]
+        time: moment(response.data.date).format('DD MMMM YYYY, HH:mm:ss'),
+        movieName: response.data.movie.title || "",
+        rows: response.data.details.screening_room.rows,
+        columns: response.data.details.screening_room.columns,
+        takenSeats: response.data.details.reserved_seats
     };
 }
 
@@ -27,6 +21,8 @@ class Reservation extends React.Component {
     constructor() {
         super();
           this.state = {
+            time: new Date(),
+            movieName: "",
             rows: 0,
             columns: 0,
             takenSeats: [],
@@ -35,12 +31,8 @@ class Reservation extends React.Component {
         }
       }
 
-    componentDidMount(){
-        // get information about room
-        this.setState(getReservationData());
-        console.log(this.props);
-        //this.props.match.params.screeningId //Id, które Ci potrzeba
-        console.log(this.props.match);
+    async componentDidMount(){
+        this.setState(await getReservationData(this.props.match.params.movieId, this.props.match.params.screeningId));
     }
 
     onSeatClick(row, column) {
@@ -66,16 +58,12 @@ class Reservation extends React.Component {
         }
     }
 
-    onHideReservation(){
-        console.log("Reservation onHideReservation")
-        this.props.onHideReservation();
-    }
-
     render() {
         return (
             <div className="reservationContainer">
-                <p className="h1">MOVE NAME - Seat Reservation</p>
-                <p className="h2">DD.MM.YY, hh.mm</p>
+                <p className="h1"> Seat Reservation</p>
+                <p className="h2">{this.state.movieName}</p>
+                <p className="h2">{String(this.state.time)}</p>
                 { this.state.isAlert ? <div className="alert">You can book up to 8 seats!</div> : ""}
                 <Seats
                     rows = { this.state.rows }
