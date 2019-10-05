@@ -1,9 +1,6 @@
 import React from "react";
-// import ReactDOM from 'react-dom'
 import MovieDetails from '../MovieDetails/MovieDetails';
-// import Modal from '../Modal/Modal.js';
 import "./Repertoire.css";
-// import Reservation from "../Reservation/Reservation";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
@@ -15,8 +12,6 @@ class Repertoire extends React.Component {
         this.movieHoursRef = React.createRef();
         this.state = {ShowMovieDetails: false};
         this.details = this.props.movieDetails.info;
-        // console.log(this.props.movieDetails._id);
-        // console.log(this.details._id);
     }
     showMovieDetails = ()=>{
         this.setState({ShowMovieDetails: true});
@@ -45,31 +40,23 @@ class Repertoire extends React.Component {
 
     openCloseDetails = (e) =>{
         e.preventDefault();
-
-        // ReactDOM.createPortal(<MovieDetails />, document.querySelector('#modal'));
         this.state.ShowMovieDetails ? this.hideMovieDetails() : this.showMovieDetails();
     }
 
-    OpenReservation(e, screeningId){
-        //Wstawić komponent Iwony
-        // <Link to={`http://localhost:3000/rendering/${screeningId}`}>Rendering with React</Link>
-        // Potrzebuję tutaj od dostać od Ciebie ID seansu (tego obiektu co ma przypisaną salę do godziny)
-       // this.props.onShowReservation(screeningId);
+    OpenReservation(date, screeningId, movieId){
+        return <Link className = {`hour  ${this.hourStyle(date)}`} to={`/reservation/${screeningId}/${movieId}`}><p>{this.showHour(date)}</p> </Link>
     }
 
     CanReserve(movieHour){
-
-        // return true;
-        // console.log(movieHour);
-        const date = new Date();
-        let actualHour = date.getHours();
-        const actualMinutes = date.getMinutes();
-        const obj = movieHour.split(":"); //obj[0] - zawiera godzine, obj[1] - zawiera minute
-        if(actualHour >= obj[0] )
-            return false;
-        actualHour++;
-        if(actualHour === obj[0])
-            return actualMinutes < obj[1];
+        // const date = new Date();
+        // let actualHour = date.getHours();
+        // const actualMinutes = date.getMinutes();
+        // const obj = movieHour.split(":"); //obj[0] - zawiera godzine, obj[1] - zawiera minute
+        // if(actualHour >= obj[0] )
+        //     return false;
+        // actualHour++;
+        // if(actualHour === obj[0])
+        //     return actualMinutes < obj[1];
         return true;
     }
     hourStyle(movieHour){
@@ -79,10 +66,16 @@ class Repertoire extends React.Component {
         const movieDate = moment(date);
         return movieDate.format("kk:mm");
     }
+
     render() {
         const details = (d) =>this.state.ShowMovieDetails
             ? <MovieDetails details={d}/>
             : null;
+        const reservation = (screening) => {
+            return this.CanReserve(screening.date)
+            ? this.OpenReservation(screening.date, screening._id, screening.movie)
+            : null;
+        }
         return (
             <div className="single">
                 <div id="movieInfo" onClick = {this.openCloseDetails} >
@@ -101,20 +94,18 @@ class Repertoire extends React.Component {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div ref={this.movieHoursRef} id="movieHours" className = {this.hoursView()}>
                     {
-                        this.props.movieDetails.screenings.map((s)=> <div key={s._id}
-                            onClick = {this.CanReserve(s.date) ? (e) => this.OpenReservation(e) : null}
+                        this.props.movieDetails.screenings.map((s)=> (
+                            <div key={s._id}
                             >
-                                <Link className = {`hour  ${this.hourStyle(s.date)}`} to={`/reservation/${s.movie}/${s._id}`}><p>{this.showHour(s.date)}</p> </Link>
+                                {reservation(s)}
                             </div>
-                        )
+                        ))
                     }
                 </div>
                     {details(this.details)}
-
             </div>
         );
     }

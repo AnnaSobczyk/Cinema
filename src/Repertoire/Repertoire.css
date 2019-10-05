@@ -1,7 +1,6 @@
 .single{
     display: flex;
     background-color: rgba(90,90,90, 0.9);
-    /* border: 2px solid green; */
     width: 100%;
     margin-bottom: 5px;
     flex-wrap: wrap;
@@ -15,7 +14,6 @@
 #movieInfo{
     display: flex;
     flex-wrap: wrap;
-    /* border: 2px solid blue; */
     width: 74%;
 }
 #movieDetails{
@@ -25,51 +23,37 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 10px;
-    /* border: 2px solid red; */
 }
 #movie-img{
     display: flex;
     width: 10%;
     min-width: 75px;
     height: 100px;
-    /* background-image:  url("https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg"); */
-    /* background-color: rgb(160,160,160); */
     padding: 5px;
     margin: 10px;
+    background-size: cover;
 }
 #movieTitle{
     color: white;
     font-size: 40px;
-    /* border: 1px solid darkcyan; */
 }
 #movieTitle p{
     margin: 0px;
 }
 #movieDuration{
     color: #DDDDDD;
-    /* border: 1px solid #aa22aa; */
 }
 #movieMinAge{
     color: #DDDDDD;
-    /* border: 1px solid wheat; */
 }
 #movieHours{
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     background-color: rgba(200,200,200, 0.6);
-    /* align-self: flex-start; */
-    /* height: 100%; */
-
 }
 .movieHours-big{
     width: 25%;
-}
-.movieHours-small{
-    /* max-width: 50%; */
-    /* display: none; */
-    /* width: 50%; */
-    /* border: 2px solid green; */
 }
 p{
     margin: 5px;
@@ -78,7 +62,6 @@ p{
 .hour{
     display: flex;
     flex-wrap: wrap;
-    /* border: 2px solid red; */
     padding: 5px;
     transition: all 0.2s ease-in;
 }
@@ -98,6 +81,5 @@ p{
 .hourOpened:hover{
     color: black;
     transform: scale(1.3);
-    /* font-size: 19px; */
     font-weight: bold;
 }
