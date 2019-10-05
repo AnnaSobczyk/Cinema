@@ -1,8 +1,40 @@
 import React from 'react';
 import Repertoire from "../Repertoire/Repertoire.js";
 import moment from 'moment';
+import instance from '../axiosInstance';
 import "./ListOfRepertoires.css";
 
+const getMovieDetails = async (movieId) =>{
+  try
+  {
+    const res = await instance.get(`/api/movies/${movieId}`);
+    return res;
+  }
+  catch (err)
+  {
+
+  }
+}
+const getMovies = async (date) => {
+  try
+  {
+    const movie = [];
+    const response = await instance.get('/api/movies'); // pobranie listy filmów, w postaci {id: xx, movie_id: xx }
+
+     const data = response.data.map(async  (d) => await (instance.get(`/api/movies/${d.movie_id}`)));
+
+     for(let i = 0; i< data.length; ++i) // wydaje się być głupim sposobem ale jedynym jaki mi zadziałał ...
+     {
+       let res;
+       await data[i].then(r => res = r);
+        movie.push(res);
+     }
+  }
+  catch(err)
+  {
+
+  }
+}
 const getFilms = () => {
     return [{
         "_id": "5d9315bc1c9d44000088b24a",
@@ -201,12 +233,29 @@ class ListOfRepertoires extends React.Component{
     }
 
     componentDidMount(){
+      getMovieDetails();
         if(!this.state.showReservation){
             this.setState({repertoire: getFilms()});
             this.markedDate = document.querySelector(".date");
             this.markedDate.style.backgroundColor = "rgba(90,90,90,0.8)";
         }
     }
+    // const data = await response.data.map( async (d) =>{
+    //    axios.get(`http://localhost:3001/api/movies/${d.movie_id}`)
+    //     .then(function (response) {
+    //       // handle success
+    //       console.log(response);
+    //       return response;
+    //     })
+    // })
+    // const data = response.data.map(async (d) => {
+    //   await fetch(`http://localhost:3001/api/movies/${d.movie_id}`)
+    //   .then( response => response.json())
+    //   .then (APIdata => {
+    //       console.log(APIdata);
+    //   })
+    // })
+
 
     // onShowReservation = (screeningId) => {
     //     this.setState({showReservation: true});
@@ -245,7 +294,7 @@ class ListOfRepertoires extends React.Component{
 
                     </div>
                     {
-                        this.state.repertoire.map((r) => <Repertoire  key={r._id} movieDetails = {r}/>) //onShowReservation = { this.onShowReservation.bind(this) }
+                        this.state.repertoire.map((r, idx) => <Repertoire  key={idx} movieDetails = {r}/>) //onShowReservation = { this.onShowReservation.bind(this) }
                     }
                 </div>
             );
@@ -264,3 +313,7 @@ class ListOfRepertoires extends React.Component{
 }
 
 export default ListOfRepertoires;
+
+
+
+
