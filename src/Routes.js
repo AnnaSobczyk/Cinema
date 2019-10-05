@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Repertoires from './ListOfRepertoires/ListOfRepertoires';
 import Reservation from './Reservation/Reservation';
-import Home from './Home';
+import Home from './Home/Home';
 
 export default function Routes() {
     return (

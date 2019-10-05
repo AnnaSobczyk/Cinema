@@ -1,0 +1,15 @@
+.home h1 {
+  font-size: 38px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  font-family: 'Notable', sans-serif;
+}
+
+.home h2 {
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-top: 10px;
+  font-family: 'Notable', sans-serif;
+}
