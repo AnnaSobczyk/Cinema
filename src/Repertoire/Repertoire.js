@@ -44,7 +44,7 @@ class Repertoire extends React.Component {
     }
 
     OpenReservation(date, screeningId, movieId){
-        return <Link className = {`hour  ${this.hourStyle(date)}`} to={`/reservation/${screeningId}/${movieId}`}><p>{this.showHour(date)}</p> </Link>
+        return <Link className = {`hour  ${this.hourStyle(date)}`} to={`/reservation/${movieId}/${screeningId}`}><p>{this.showHour(date)}</p> </Link>
     }
 
     CanReserve(movieHour){
