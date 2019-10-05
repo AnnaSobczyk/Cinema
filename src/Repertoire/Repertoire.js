@@ -60,7 +60,7 @@ class Repertoire extends React.Component {
     CanReserve(movieHour){
 
         // return true;
-        console.log(movieHour);
+        // console.log(movieHour);
         const date = new Date();
         let actualHour = date.getHours();
         const actualMinutes = date.getMinutes();
