@@ -4,9 +4,9 @@ import Seats from "../Seats/Seats.js";
 import ReservedSeats from "../ReservedSeats/ReservedSeats.js";
 import Result from "../ReservationSteps/Result";
 import PaymentMethod from "../ReservationSteps/PaymentMethod";
-import SignIn from "../ReservationSteps/SignIn";
 import TicketsAccept from "../ReservationSteps/TicketsAccept"
 import ReservationPage from "../Tools/ReservationPage";
+import Form from '../ReservationSteps/Form';
 
 
 const getReservationData = () => {
@@ -39,8 +39,9 @@ class Reservation extends React.Component {
             //user:null,
             paymentMethod:null,
             paymentCompleted:false,
-            ticketTypes:[]
+            
         }
+        this.handleChange=this.handleChange.bind(this);
       }
 
     componentDidMount(){
@@ -61,7 +62,9 @@ class Reservation extends React.Component {
             })
         }
     }
-
+    handleChange(name,val){
+        this.setState({ [name]: val })
+    }
   //  onHideReservation(){
   //      console.log("Reservation onHideReservation")
     //    this.props.onHideReservation();
@@ -74,11 +77,9 @@ class Reservation extends React.Component {
         //this.setState({ticketTypes:});
 
     // }
-    //zmienmy może ticketsAccepted na Accepted
    onAccepted(){
      console.log("Tickets accepted")
-      this.setState({ticketsSelected:true});
-      
+      this.setState({ticketsAccepted:true});  
     }
     //trzeba zmienić nazwę, jeśli nie będzie logowanie
     onAuthenticated(){
@@ -115,8 +116,6 @@ class Reservation extends React.Component {
         )*/
         if(!this.state.seatsSelected)
          {  return (
-                //przydałby sie dodatkowy komponent do otoczki
-///back nie działa, dunkcja przystosowana eszcze do wersji bez routa, trzeba zrobić to hrefa
                 <ReservationPage Next={(e)=>this.onSelected()}>
                      <Seats 
                       rows = { this.state.rows }
@@ -131,7 +130,7 @@ class Reservation extends React.Component {
                 </ReservationPage>
             )
          }
-        else if(!this.state.ticketAccepted)
+        else if(!this.state.ticketsAccepted)
         {
             // tu  <TicketsAccept/>
             return(
@@ -153,23 +152,26 @@ class Reservation extends React.Component {
                
                 <ReservationPage Next={(e)=>this.onAuthenticated()}>
                 <p> tu będzie formularz</p> 
+                <Form onChange={this.handleChange}/>
             </ReservationPage>
                
             )
         }else if(!this.state.paymentMethod){
             return(
-                //tego też nie ma 
+            
                // <PaymentMethod/>
                <ReservationPage Next={(e)=>this.onPaymentMethod()}>
               <p> tu będą płatności</p>
+              <PaymentMethod/>
            </ReservationPage>
             )
         }
-        //i tego też nie ma
+        
         return (
         //<Result/>
         <ReservationPage  Next={(e)=>this.onPaymentCompleted()}>
         <p>tu będzie finalizacja</p>
+        <Result/>
     </ReservationPage>
         )
 

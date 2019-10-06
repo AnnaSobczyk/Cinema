@@ -17,11 +17,11 @@ constructor(props){
         return (
             <span>
             <div>{/*na selectedseats*/ this.props.children}</div>
-            <div>opcjonalny, z typami biletów
+           {/* <div>opcjonalny, z typami biletów
              <SelectType selected={this.props.selected} onChange={this.handleChange}/>
             </div>
             <div>ceny</div>
-            <div>razem</div>
+           <div>razem</div>*/}
         {/*<button type="submit" onClick={this.handleSubmit}>ok</button>*/}
             </span>
             
