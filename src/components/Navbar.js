@@ -8,8 +8,8 @@ const Navbar = () => {
       <Link to='/' className="brand-logo">CinemaVilage</Link>
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><Link to='/repertoires' className="logo">Repertoires</Link></li>
-        <li><Link to='/' className="logo">Log in</Link></li>
-        <li><Link to='/' className="logo">Register</Link></li>
+        <li><Link to='/login' className="logo">Sign in</Link></li>
+        <li><Link to='/register' className="logo">Register</Link></li>
       </ul>
     </div>
   </nav>

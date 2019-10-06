@@ -18,3 +18,8 @@
   color: #999;
   padding: 15px 0;
 }
+
+.login,
+.register {
+  margin-top: 100px;
+}

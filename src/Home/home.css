@@ -1,9 +1,12 @@
+.home {
+  font-family: 'Notable', sans-serif;
+}
+
 .home h1 {
   font-size: 32px;
   text-align: center;
   letter-spacing: 2px;
   margin-bottom: 10px;
-  font-family: 'Notable', sans-serif;
 }
 
 .home h2 {
@@ -12,7 +15,6 @@
   letter-spacing: 2px;
   margin-top: 10px;
   margin-bottom: 100px;
-  font-family: 'Notable', sans-serif;
 }
 
 .home h3 {
