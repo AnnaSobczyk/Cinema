@@ -1,3 +1,14 @@
+.rep-list {
+    min-height: 100%;
+}
+
+.rep-title {
+  font-family: 'Notable', sans-serif;
+  font-size: 42px;
+  margin-top: 25px;
+  color: #fff;
+}
+
 #container{
     display: flex;
     width: 100%;
@@ -8,7 +19,7 @@
 }
 
 .div-wraper{
-    width: 90%;
+    width: 100%;
 }
 
 #dateForm{
@@ -17,7 +28,6 @@
     color: aliceblue;
     justify-content:  flex-end;
     align-items: flex-end;
-    /* border: 2px solid blue; */
     padding: 45px;
     box-sizing: border-box;
 }

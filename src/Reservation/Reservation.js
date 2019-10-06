@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Reservation.css";
 import Seats from "../Seats/Seats.js";
+import Legend from "../Legend/Legend.js";
 import ReservedSeats from "../ReservedSeats/ReservedSeats.js";
 import Result from "../ReservationSteps/Result";
 import PaymentMethod from "../ReservationSteps/PaymentMethod";
@@ -8,20 +9,18 @@ import TicketsAccept from "../ReservationSteps/TicketsAccept"
 import ReservationPage from "../Tools/ReservationPage";
 import Form from '../ReservationSteps/Form';
 
+import instance from '../axiosInstance';
+import { Link } from "react-router-dom";
+import moment from "moment";
 
-const getReservationData = () => {
+const getReservationData = async (movieId, screeningId) => {
+    const response = await instance.get(`/api/screenings/${movieId}/${screeningId}`);
     return {
-        rows: 12,
-        columns: 20,
-        takenSeats: [
-            {row: 2, column: 2},
-            {row: 2, column: 3},
-            {row: 2, column: 4},
-            {row: 4, column: 12},
-            {row: 4, column: 13},
-            {row: 4, column: 14},
-            {row: 4, column: 15},
-        ]
+        time: moment(response.data.date).format('DD MMMM YYYY, HH:mm:ss'),
+        movieName: response.data.movie.title || "",
+        rows: response.data.details.screening_room.rows,
+        columns: response.data.details.screening_room.columns,
+        takenSeats: response.data.details.reserved_seats
     };
 }
 
@@ -29,6 +28,8 @@ class Reservation extends React.Component {
     constructor() {
         super();
           this.state = {
+            time: new Date(),
+            movieName: "",
             rows: 0,
             columns: 0,
             takenSeats: [],
@@ -40,15 +41,13 @@ class Reservation extends React.Component {
             paymentMethod:null,
             paymentCompleted:false,
             
+            isAlert: false
         }
         this.handleChange=this.handleChange.bind(this);
       }
 
-    componentDidMount(){
-        // get information about room
-        this.setState(getReservationData());
-        console.log(this.props);
-        //this.props.match.params.screeningId //Id, które Ci potrzeba
+    async componentDidMount(){
+        this.setState(await getReservationData(this.props.match.params.movieId, this.props.match.params.screeningId));
     }
 
     onSeatClick(row, column) {
@@ -57,9 +56,20 @@ class Reservation extends React.Component {
                 selectedSeats: this.state.selectedSeats.filter(seat => !(seat.row === row && seat.column === column))
             })
         } else {
-            this.setState({
-                selectedSeats: this.state.selectedSeats.concat({row: row, column: column}),
-            })
+            if(this.state.selectedSeats.length < 8){
+                this.setState({
+                    selectedSeats: this.state.selectedSeats.concat({row: row, column: column}),
+                })
+            }else {
+                this.setState({
+                    isAlert: true,
+                })
+                setTimeout(() => { 
+                    this.setState({
+                        isAlert: false,
+                    }) 
+                }, 3000);
+            }
         }
     }
     handleChange(name,val){
@@ -98,8 +108,9 @@ class Reservation extends React.Component {
     render() {
         /*return (
             <div className="reservationContainer">
-                <p className="h1">MOVE NAME - Seat Reservation</p>
-                <p className="h2">DD.MM.YY, hh.mm</p>
+                <p className="h1"> Seat Reservation</p>
+                { this.state.movieName? <p className="h2">{this.state.movieName}</p> : ""}
+                <p className="h2">{String(this.state.time)}</p>
                 <Seats
                     rows = { this.state.rows }
                     columns = { this.state.columns }
@@ -107,11 +118,25 @@ class Reservation extends React.Component {
                     selected = { this.state.selectedSeats }
                     onSeatClick = { this.onSeatClick.bind(this) }
                 />
+
                 <ReservedSeats
                     selected = { this.state.selectedSeats }
                 />
                 <button className="close-button" type="button" onClick={ (e) => this.onHideReservation() }>CLOSE</button>
                 <button className="select-button" type="button" onClick={(e)=>this.onSelected()} >SELECT SEATS</button>
+////!!!!!!!tu coś się porobiło-porównać z developem
+                { this.state.isAlert ? <div className="alert">You can book up to 8 seats!</div> : ""}
+                <Legend/>
+                <div className="page-bottom">
+                    <ReservedSeats
+                        selected = { this.state.selectedSeats }
+                    />
+                    <div className="button-group">
+                        <button className="close-button" type="button"><Link className="link-button" to='/repertoires'>Close</Link></button>
+                        <button className="close-button" type="button"><Link className="link-button" to='/'>Book selected seats</Link></button>
+                    </div>
+                </div>
+
             </div>
         )*/
         if(!this.state.seatsSelected)
