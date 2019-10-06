@@ -61,8 +61,9 @@ class ListOfRepertoires extends React.Component{
 
     renderComponent() {
             return (
+              <div className="rep-list">
                 <div id="container">
-                    <p style = {{fontSize: "30px", color: "white"}}>Movies</p>
+                    <h2 className="rep-title">Movies</h2>
                     <div id="dateForm">
                         {
                             [0,1,2,3,4,5].map(d => <div key = {d} className = "date" onClick = {(e) => this.showMoviesForDay(e, moment().clone().add(d, "day").format("DD.MM.YYYY"))}>
@@ -76,6 +77,7 @@ class ListOfRepertoires extends React.Component{
                         this.state.repertoires.map((r, idx) => <Repertoire  key={idx} movieDetails = {r}/>) //onShowReservation = { this.onShowReservation.bind(this) }
                     }
                 </div>
+              </div>
             );
     }
     render(){

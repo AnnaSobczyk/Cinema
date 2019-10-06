@@ -1,9 +1,25 @@
-.tags {
-    display: flex;
-    /* border: 2px solid red; */
-    align-content: center;
-    justify-content: center;
-    width: 100%;
-    /* background-color: pink; */
-    /* height: 30%; */
+.App {
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;;
+}
+
+.footer > p {
+  text-align: center;
+  font-size: 12px;
+  margin: 0;
+  color: #999;
+  padding: 15px 0;
+}
+
+.login,
+.register {
+  margin-top: 100px;
 }
