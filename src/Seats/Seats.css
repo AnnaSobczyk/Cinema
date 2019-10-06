@@ -1,9 +1,4 @@
 .seatsContainer {
-  display: flex;
-  width: 90%;
-  align-items: center;
-  flex-direction: column;
-  
   user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -21,20 +16,22 @@
   height: 2.5vw;
   color: black;
   background-color: white;
+  text-align: center;
 }
 
 .seatsTable td {
-  width: 2vw;
-  height: 2vw;
   float: left;
   margin: 1.5px;
-  text-align: center;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2vw;
+  height: 2vw;
+  padding: 0;
 }
 
-.selected, .available {
-  color: #fff;
-  border: 1.5px solid white;
+.label {
+  color: white;
 }
 
 .taken {
@@ -42,8 +39,14 @@
   border: 1.5px solid grey;
 }
 
-.label {
-  color: white;
+.available {
+  color: #fff;
+}
+
+.selected {
+  background: white;
+  color: black;
+  display: inline-block;
 }
 
 .selected:hover {
@@ -56,14 +59,35 @@
   cursor: pointer;
 }
 
-.selected {
-  background: white;
-  color: black;
-  display: inline-block;
+@media only screen and (max-width: 1100px)  {
+  .seatsTable td {
+    width: 2.5vw;
+    height: 2.5vw;
+  }
+}
+
+@media only screen and (max-width: 900px)  {
+  .seatsTable td {
+    width: 3vw;
+    height: 3vw;
+  }
+}
+
+@media only screen and (max-width: 700px)  {
+  .seatsTable td {
+    width: 3.5vw;
+    height: 3.5vw;
+  }
 }
 
 @media only screen and (max-width: 750px)  {
   .seatsTable{
     font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 420px)  {
+  .seatsTable{
+    font-size: 0.5rem;
   }
 }
