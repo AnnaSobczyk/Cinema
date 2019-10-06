@@ -1,0 +1,12 @@
+.avatar img{
+    height: 100%;
+    width: auto;
+    text-align: center;
+    padding: 5px;
+}
+
+.comment{
+    height:70px;
+    display: flex;
+    margin: 10px;
+}
