@@ -1,7 +1,5 @@
 import React from 'react'
-import Navbar from '../components/Navbar';
 import Popular from '../components/Popular';
-import Footer from '../components/Footer';
 import './home.css';
 const axios = require('axios');
 
@@ -25,13 +23,11 @@ export default class Home extends React.Component {
    render () {
        return (
            <div className="home">
-               <Navbar/>
 							 <div className="container">
 							 	<h1>Welcome to our brand new Village Cinema</h1>
                 <h2>Feel free to find what's you want and watch what you found...</h2>
 								<Popular popularMovies={this.state.popularMovies}/>
 							 </div>
-							 <Footer />
            </div>
        )
    }

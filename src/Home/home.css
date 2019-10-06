@@ -23,6 +23,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: 100px;
 }
 
 .movie-item {
@@ -37,14 +38,3 @@ img {
   max-width: 100%;
 }
 
-.footer {
-  margin-top: 50px;
-}
-
-.footer > p {
-  text-align: center;
-  font-size: 12px;
-  margin: 0;
-  color: #999;
-  padding: 15px 0;
-}
