@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+const axios = require('axios');
+
 
 class SignIn extends Component {
   state = {
@@ -12,7 +14,16 @@ class SignIn extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    const user = this.state;
+
+    axios.post(`/api/login`, { user })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      })
   }
   render() {
     return (
