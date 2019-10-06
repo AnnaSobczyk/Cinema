@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import SignIn from './components/SignIn'
 import Register from './components/Register'
 import Repertoires from './ListOfRepertoires/ListOfRepertoires';
+import Reservation from './Reservation/Reservation';
 import Home from './Home/Home'
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path="/repertoires" component={Repertoires} />
+            <Route path="/reservation/:movieId/:screeningId" component={Reservation} />
             <Route path="/login" component={SignIn} />
             <Route path="/register" component={Register} />
           </Switch>
