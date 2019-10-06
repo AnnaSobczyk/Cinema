@@ -54,7 +54,6 @@ class ListOfRepertoires extends React.Component{
         this.markedDate.style.backgroundColor = "transparent";
         e.currentTarget.style.backgroundColor = "rgba(90,90,90,0.8)";
         this.markedDate = e.currentTarget;
-        console.log(date);
         const movies = await getMovies(this.allMovies, date);
         this.setState({repertoires: movies})
     }
@@ -71,7 +70,6 @@ class ListOfRepertoires extends React.Component{
                                             </div>
                                             )
                         }
-
                     </div>
                     {
                         this.state.repertoires.map((r, idx) => <Repertoire  key={idx} movieDetails = {r}/>) //onShowReservation = { this.onShowReservation.bind(this) }
