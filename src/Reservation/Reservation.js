@@ -44,6 +44,7 @@ class Reservation extends React.Component {
             isAlert: false
         }
         this.handleChange=this.handleChange.bind(this);
+        this.paymentMethod=this.paymentMethod.bind(this);
       }
 
     async componentDidMount(){
@@ -75,6 +76,10 @@ class Reservation extends React.Component {
     handleChange(name,val){
         this.setState({ [name]: val })
     }
+    paymentMethod(val){
+        this.setState({paymentMethod:val})
+    }
+    
   //  onHideReservation(){
   //      console.log("Reservation onHideReservation")
     //    this.props.onHideReservation();
@@ -141,7 +146,7 @@ class Reservation extends React.Component {
         )*/
         if(!this.state.seatsSelected)
          {  return (
-                <ReservationPage Next={(e)=>this.onSelected()}>
+                <ReservationPage movieTitle={this.state.movieName} time={String(this.state.time)} Next={(e)=>this.onSelected()}>
                      <Seats 
                       rows = { this.state.rows }
                       columns = { this.state.columns }
@@ -160,8 +165,8 @@ class Reservation extends React.Component {
             // tu  <TicketsAccept/>
             return(
               
-              <ReservationPage Next={(e)=>this.onAccepted()}>
-                   <p>tu będą wybrane bilety/miejsca</p> 
+              <ReservationPage  movieTitle={this.state.movieName} time={String(this.state.time)} Next={(e)=>this.onAccepted()}>
+                   <p>Selected seats:</p> 
                    <TicketsAccept selected={this.state.selectedSeats}>
                    <ReservedSeats 
                        selected = { this.state.selectedSeats }
@@ -175,8 +180,8 @@ class Reservation extends React.Component {
         {
             return(
                
-                <ReservationPage Next={(e)=>this.onAuthenticated()}>
-                <p> tu będzie formularz</p> 
+                <ReservationPage  movieTitle={this.state.movieName} time={String(this.state.time)} Next={(e)=>this.onAuthenticated()}>
+           
                 <Form onChange={this.handleChange}/>
             </ReservationPage>
                
@@ -185,18 +190,16 @@ class Reservation extends React.Component {
             return(
             
                // <PaymentMethod/>
-               <ReservationPage Next={(e)=>this.onPaymentMethod()}>
-              <p> tu będą płatności</p>
-              <PaymentMethod/>
+               <ReservationPage  movieTitle={this.state.movieName} time={String(this.state.time)} Next={(e)=>this.onPaymentMethod()}>
+              <PaymentMethod method={this.paymentMethod}/>
            </ReservationPage>
             )
         }
         
         return (
         //<Result/>
-        <ReservationPage  Next={(e)=>this.onPaymentCompleted()}>
-        <p>tu będzie finalizacja</p>
-        <Result/>
+        <ReservationPage  movieTitle={this.state.movieName} time={String(this.state.time)} Next={(e)=>this.onPaymentCompleted()}>
+        <Result result={this.state.paymentCompleted}/>
     </ReservationPage>
         )
 

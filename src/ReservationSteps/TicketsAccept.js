@@ -13,7 +13,8 @@ constructor(props){
   ///czy konieczne jest handleChange
 
     render(){
-     
+      //przy zal. 10$ bilet
+     const total=10*this.props.selected.length;
         return (
             <span>
             <div>{/*na selectedseats*/ this.props.children}</div>
@@ -23,6 +24,7 @@ constructor(props){
             <div>ceny</div>
            <div>razem</div>*/}
         {/*<button type="submit" onClick={this.handleSubmit}>ok</button>*/}
+        <p>Total:{total} $</p>
             </span>
             
         )
