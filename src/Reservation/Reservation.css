@@ -27,7 +27,7 @@ table {
   flex-direction: column;
 }
 
-.close-button {
+.button {
   padding: 0.4rem;
   font-size: 1.2rem;
   background-color: transparent;

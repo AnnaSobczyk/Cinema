@@ -25,10 +25,12 @@ class PaymentMethod extends React.Component{
             <div>
                 <p>Pay via online payment system</p>
                 {/*przycisk atrapa*/}
-                <a><button onClick={this.handleClick}>Link to payment site</button></a>
+                <a><button className="button" onClick={this.handleClick}>Link to payment site</button></a>
+                <br/>
             </div>
             <div>
-                <p>Wykorzystaj kupon</p>
+                <br/>
+                <p>Use coupon</p>
                 {/*input Coupon*/}
                 <label>Coupon</label>
             <input type="text" name="coupon" onChange={this.handleChange} />

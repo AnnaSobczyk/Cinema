@@ -12,7 +12,7 @@ class reservationPage extends React.Component{
 {this.props.children}
 {/*może na razie nie 
 <button className="close-button" type="button"onClick={props.Back}>BACK</button>*/}
-<button className="select-button" type="button" onClick={this.props.Next} >NEXT</button>
+<button className="select-button button" type="button" onClick={this.props.Next} >NEXT</button>
 </div>)
 }}
 export default reservationPage;
