@@ -1,0 +1,42 @@
+.home {
+  font-family: 'Notable', sans-serif;
+}
+
+.home h1 {
+  font-size: 32px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.home h2 {
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-top: 10px;
+  margin-bottom: 100px;
+}
+
+.home h3 {
+  font-size: 28px;
+}
+
+.popular-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+
+.movie-item {
+  width: calc(100% / 4 - 16px);
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+img {
+  object-fit: cover;
+  max-width: 100%;
+}
+

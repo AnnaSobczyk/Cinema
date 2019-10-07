@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Reservation.css";
 import Seats from "../Seats/Seats.js";
+import Legend from "../Legend/Legend.js";
 import ReservedSeats from "../ReservedSeats/ReservedSeats.js";
 import instance from '../axiosInstance';
 import { Link } from "react-router-dom";
@@ -53,7 +54,7 @@ class Reservation extends React.Component {
                     this.setState({
                         isAlert: false,
                     }) 
-                }, 2000);
+                }, 3000);
             }
         }
     }
@@ -62,9 +63,8 @@ class Reservation extends React.Component {
         return (
             <div className="reservationContainer">
                 <p className="h1"> Seat Reservation</p>
-                <p className="h2">{this.state.movieName}</p>
+                { this.state.movieName? <p className="h2">{this.state.movieName}</p> : ""}
                 <p className="h2">{String(this.state.time)}</p>
-                { this.state.isAlert ? <div className="alert">You can book up to 8 seats!</div> : ""}
                 <Seats
                     rows = { this.state.rows }
                     columns = { this.state.columns }
@@ -72,12 +72,16 @@ class Reservation extends React.Component {
                     selected = { this.state.selectedSeats }
                     onSeatClick = { this.onSeatClick.bind(this) }
                 />
-                <ReservedSeats
-                    selected = { this.state.selectedSeats }
-                />
-                <div className="button-group">
-                    <button className="close-button" type="button"><Link className="link-button" to='/repertoires'>Close</Link></button>
-                    <button className="close-button" type="button"><Link className="link-button" to='/'>Book selected seats</Link></button>
+                { this.state.isAlert ? <div className="alert">You can book up to 8 seats!</div> : ""}
+                <Legend/>
+                <div className="page-bottom">
+                    <ReservedSeats
+                        selected = { this.state.selectedSeats }
+                    />
+                    <div className="button-group">
+                        <button className="close-button" type="button"><Link className="link-button" to='/repertoires'>Close</Link></button>
+                        <button className="close-button" type="button"><Link className="link-button" to='/'>Book selected seats</Link></button>
+                    </div>
                 </div>
             </div>
         )
