@@ -3,8 +3,6 @@ import './FilmComment.css'
 
 class FilmComment extends React.Component{
 
-    
-
     render(){
         return(
             <div className="comment">
