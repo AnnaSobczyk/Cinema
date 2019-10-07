@@ -8,7 +8,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;;
+  right: 0;
 }
 
 .footer > p {
@@ -22,4 +22,10 @@
 .login,
 .register {
   margin-top: 100px;
+}
+
+.success,
+.error {
+  display: none;
+  font-size: 24px;
 }

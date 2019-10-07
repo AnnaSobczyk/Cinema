@@ -11,7 +11,7 @@ class ReservedSeats extends React.Component {
     render() {
         return(
         <div className="selectedSeats">
-            <h4>Selected seats: ({this.props.selected.length})</h4>
+            <h4 className="h2">Selected seats: ({this.props.selected.length})</h4>
             <p key="listOfSeats" >
                 {this.createList()}
             </p>

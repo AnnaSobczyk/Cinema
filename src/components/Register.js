@@ -1,21 +1,36 @@
 import React, { Component } from 'react'
+const axios = require('axios');
 
 class Register extends Component {
   state = {
     email: '',
     password: '',
-    nickname: '',
-    lastName: '',
+    name: '',
+    surname: '',
   }
+
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     })
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    const user = this.state;
+
+    axios.post(`/api/users`, { user })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        document.querySelector('.success').style.display = "block";
+      })
+      .catch(e => {
+        console.log(e);
+        document.querySelector('.error').style.display = "block";
+      })
   }
+
   render() {
     return (
       <div className="container register">
@@ -30,13 +45,19 @@ class Register extends Component {
             <input type="password" id='password' onChange={this.handleChange} />
           </div>
           <div className="input-field">
-            <label htmlFor="nickname">Nickname</label>
-            <input type="text" id='nickname' onChange={this.handleChange} />
+            <label htmlFor="name">Name</label>
+            <input type="text" id='name' onChange={this.handleChange} />
           </div>
           <div className="input-field">
-            <button className="btn grey grey darken-3">Sign Up</button>
+            <label htmlFor="surname">Last Name</label>
+            <input type="text" id='surname' onChange={this.handleChange} />
+          </div>
+          <div className="input-field">
+            <button className="btn grey grey darken-3">Register</button>
           </div>
         </form>
+        <p className="success light-green-text">Welcome on board !</p>
+        <p className="error red-text">Something went wrong ! !</p>
       </div>
     )
   }
