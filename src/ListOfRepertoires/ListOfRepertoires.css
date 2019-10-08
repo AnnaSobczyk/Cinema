@@ -16,6 +16,7 @@
     align-items: center;
     background-color: rgb(20, 20,20);
     flex-direction: column;
+    padding-bottom: 50px;
 }
 
 .div-wraper{

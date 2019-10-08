@@ -20,8 +20,6 @@ class Repertoire extends React.Component {
     hideMovieDetails = () =>{
         this.setState({ShowMovieDetails: false});
     }
-
-    // nie działa przy wyświetlaniu rezerwacji, ale nie jestem pewna co zmienić
     onResize = () =>{
         this.movieHoursRef.current.className = this.hoursView();
     }
@@ -34,7 +32,7 @@ class Repertoire extends React.Component {
     }
     hoursView = ()=> {
         const width = window.innerWidth;
-        if(width <= 1285) return "movieHours-small";
+        if(width <= 720) return "movieHours-small";
         else return "movieHours-big";
     }
 
@@ -46,18 +44,15 @@ class Repertoire extends React.Component {
     OpenReservation(date, screeningId, movieId){
         return <Link className = {`hour  ${this.hourStyle(date)}`} to={`/reservation/${movieId}/${screeningId}`}><p>{this.showHour(date)}</p> </Link>
     }
+    ClosedReservation(date){
+        return <div className = {`hour ${this.hourStyle(date)}`}><p>{this.showHour(date)}</p></div>
+    }
 
     CanReserve(movieHour){
-        // const date = new Date();
-        // let actualHour = date.getHours();
-        // const actualMinutes = date.getMinutes();
-        // const obj = movieHour.split(":"); //obj[0] - zawiera godzine, obj[1] - zawiera minute
-        // if(actualHour >= obj[0] )
-        //     return false;
-        // actualHour++;
-        // if(actualHour === obj[0])
-        //     return actualMinutes < obj[1];
-        return true;
+        const actualHour = moment().format("HH.mm");
+        const movieHourHHmm = moment(movieHour).add(-1, "hours").format("HH.mm");
+
+        return actualHour < movieHourHHmm;
     }
     hourStyle(movieHour){
         return this.CanReserve(movieHour) ? "hourOpened" : "hourBlocked";
@@ -74,7 +69,7 @@ class Repertoire extends React.Component {
         const reservation = (screening) => {
             return this.CanReserve(screening.date)
             ? this.OpenReservation(screening.date, screening._id, screening.movie)
-            : null;
+            : this.ClosedReservation(screening.date);
         }
         return (
             <div className="single">
@@ -109,9 +104,7 @@ class Repertoire extends React.Component {
             </div>
         );
     }
-
 }
-
 
 export default Repertoire;
 
